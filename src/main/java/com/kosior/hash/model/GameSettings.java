@@ -16,4 +16,5 @@ public class GameSettings {
     public List<Integer> productTypesWeight = new ArrayList<>();
     public List<Warehouse> warehouses = new ArrayList<>();
     public List<Order> orders = new ArrayList<>();
+    public List<Dron> drones = new ArrayList<>();
 }

@@ -1,5 +1,6 @@
 package com.kosior.hash;
 
+import com.kosior.hash.model.Dron;
 import com.kosior.hash.model.GameSettings;
 import com.kosior.hash.model.Order;
 import com.kosior.hash.model.Warehouse;
@@ -32,8 +33,10 @@ public class InputReaderAndParser {
 			warehouse.column = scanner.nextInt();
 
 			for (int j = 0; j < gameSettings.numberOfProductTypes; ++j) {
-				gameSettings.warehouses.add(warehouse);
+				warehouse.numberOfProducts.add(j, scanner.nextInt());
 			}
+
+			gameSettings.warehouses.add(warehouse);
 		}
 
 		gameSettings.numberOfOrders = scanner.nextInt();
@@ -55,6 +58,16 @@ public class InputReaderAndParser {
 			}
 
 			gameSettings.orders.add(order);
+		}
+
+		// Drony na poczatku sa w pierwszym warehouse
+		Warehouse initialWarehouse = gameSettings.warehouses.get(0);
+		for (int i = 0; i < gameSettings.dronesNumber; ++i) {
+			Dron dron = new Dron();
+			dron.column = initialWarehouse.column;
+			dron.row = initialWarehouse.row;
+
+			gameSettings.drones.add(dron);
 		}
 
 		return gameSettings;
