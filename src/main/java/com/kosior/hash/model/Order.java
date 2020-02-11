@@ -7,6 +7,7 @@ public class Order {
     public int row;
     public int column;
     public int numberOfItems;
+    public int totalWeights;
 
     // product id, quantity
     public Map<Integer, Integer> productsNeeded = new HashMap<>();

@@ -55,6 +55,8 @@ public class InputReaderAndParser {
 				} else {
 					order.productsNeeded.put(item, 1);
 				}
+
+				order.totalWeights += gameSettings.productTypesWeight.get(item);
 			}
 
 			gameSettings.orders.add(order);

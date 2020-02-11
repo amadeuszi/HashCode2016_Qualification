@@ -15,11 +15,17 @@ public class HeatMapGenerator {
 
 
         for (Order order: gameSettings.orders) {
-            data[order.column][order.row] = 1;
+            data[order.column][order.row] = order.totalWeights;
         }
 
         for (Warehouse warehouse : gameSettings.warehouses) {
-            data[warehouse.column][warehouse.row] = 6;
+            data[warehouse.column][warehouse.row] = 1000;
+            data[warehouse.column-1][warehouse.row] = 1000;
+        //    data[warehouse.column+1][warehouse.row] = 1000;
+        //    data[warehouse.column+1][warehouse.row+1] = 1000;
+        //    data[warehouse.column+1][warehouse.row+1] = 1000;
+            data[warehouse.column-1][warehouse.row-1] = 1000;
+            data[warehouse.column][warehouse.row-1] = 1000;
         }
 
         HeatChart map = new HeatChart(data);
