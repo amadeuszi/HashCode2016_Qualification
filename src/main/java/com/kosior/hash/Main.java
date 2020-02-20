@@ -29,13 +29,13 @@ public class Main {
 
         while (currentDay < data.getNumberOfDays()) {
             if (finishSignUp == currentDay) {
-                assert processLibrary != null;
                 outputLibraries.add(processLibrary);
                 processLibrary = null;
             }
             if (finishSignUp < currentDay && !libraryQueue.isEmpty()) {
                 Library library = libraryQueue.poll();
                 finishSignUp = currentDay + library.getSignupTime() - 1; // TODO czy na pewno - 1
+                processLibrary = library;
             }
             for (Library library : outputLibraries) {
                 List<Book> books = this.findBooks(library);
@@ -53,12 +53,12 @@ public class Main {
 
     private List<Book> findBooks(Library library) {
         int size = library.getNumberOfBooks();
-        library.getBooksToScan().removeIf(Book::isDone);
-        if (library.getBooksToScan().isEmpty()) {
+        library.getBooks().removeIf(Book::isDone);
+        if (library.getBooks().isEmpty()) {
             return Collections.emptyList();
         }
         List<Book> ret = new ArrayList<>();
-        for (Book book : library.getBooksToScan()) {
+        for (Book book : library.getBooks()) {
             if (ret.size() == size) {
                 break;
             }
