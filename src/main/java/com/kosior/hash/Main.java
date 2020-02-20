@@ -8,13 +8,13 @@ import java.util.*;
 
 public class Main {
 
-    private Data data;
+    public static Data data;
 
-    private int currentDay = 0;
+    public static int currentDay = 0;
     private static List<Library> outputLibraries = new ArrayList<>();
     private static Library processLibrary = null;
 
-    private List<Library> librarySortable;
+    public static List<Library> librarySortable;
     private int finishSignUp = -1;
     public static List<Integer> booksInHowManyLibraries;
 
@@ -22,6 +22,8 @@ public class Main {
     private void run() {
         data = InputReaderAndParser.readAndParseInput();
         librarySortable = new ArrayList<>(data.getLibraries());
+
+        // this.printLibrariesData();
 
         while (currentDay < data.getNumberOfDays()) {
             if (finishSignUp == currentDay) {
@@ -45,6 +47,13 @@ public class Main {
         }
 
         this.printOutput();
+    }
+
+    private void printLibrariesData() {
+        for (Library library : data.libraries) {
+            int suma = library.getBooks().stream().filter(b -> !b.isDone()).map(b -> b.getScore()).reduce(0, Integer::sum);
+            System.out.println(library.getSignupTime() + " " + library.getPerformance() + " " + library.getDistinctBooks() + " " + Math.log(suma));
+        }
     }
 
     private List<Book> findBooks(Library library) {

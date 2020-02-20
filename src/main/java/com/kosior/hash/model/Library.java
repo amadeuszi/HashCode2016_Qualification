@@ -1,5 +1,7 @@
 package com.kosior.hash.model;
 
+import com.kosior.hash.Main;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -77,13 +79,12 @@ public class Library implements  Comparable<Library> {
 	}
 
 	private int getScore(Library library) {
-		int res = 0;
-		res += library.getBooks().stream().filter(b -> !b.isDone()).map(b -> b.getScore()).reduce(0, Integer::sum) * 0.7; // TODO factor
-		res += library.getPerformance();
-		res += library.getDistinctBooks() * 4;
-		res += (-1) * library.getSignupTime() * 7 ; // TODO factor
+		double suma = library.getBooks().stream().filter(b -> !b.isDone()).map(b -> b.getScore()).reduce(0, Integer::sum); // TODO factor
 
-		return res;
+		int booksMaxRemain = library.getPerformance() * (Main.data.numberOfDays - Main.currentDay);
+		int possibleScore = library.getBooks().stream().filter(b -> !b.isDone()).sorted().limit(booksMaxRemain).map(b -> b.getScore()).reduce(0, Integer::sum);
+
+		return possibleScore * 10;
 	}
 
 }
