@@ -16,6 +16,7 @@ public class Main {
 
     private List<Library> librarySortable;
     private int finishSignUp = -1;
+    public static List<Integer> booksInHowManyLibraries;
 
 
     private void run() {

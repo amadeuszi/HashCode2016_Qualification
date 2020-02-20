@@ -11,6 +11,15 @@ public class Library implements  Comparable<Library> {
 	public int performance;
 	public List<Book> books = new ArrayList<>();
 	public List<Book> booksToScan = new ArrayList<>();
+	public int distinctBooks;
+
+	public int getDistinctBooks() {
+		return distinctBooks;
+	}
+
+	public void setDistinctBooks(int distinctBooks) {
+		this.distinctBooks = distinctBooks;
+	}
 
 	public int getId() {
 		return id;
@@ -70,8 +79,9 @@ public class Library implements  Comparable<Library> {
 	private int getScore(Library library) {
 		int res = 0;
 		res += library.getBooks().stream().filter(b -> !b.isDone()).map(b -> b.getScore()).reduce(0, Integer::sum) * 0.7; // TODO factor
-//		res += library.getPerformance();
-		res += (-1) * library.getSignupTime() ; // TODO factor
+		res += library.getPerformance();
+		res += library.getDistinctBooks() * 4;
+		res += (-1) * library.getSignupTime() * 7 ; // TODO factor
 
 		return res;
 	}
