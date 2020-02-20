@@ -4,6 +4,7 @@ import com.kosior.hash.model.Book;
 import com.kosior.hash.model.Data;
 import com.kosior.hash.model.Library;
 
+import java.util.PriorityQueue;
 import java.util.Scanner;
 
 public class InputReaderAndParser {
@@ -35,6 +36,7 @@ public class InputReaderAndParser {
 				Book book = data.getAllBooks().get(bookId);
 				library.getBooks().add(book);
 			}
+			library.getBooksToScan().sort(Book::compareTo);
 			data.getLibraries().add(library);
 		}
 
