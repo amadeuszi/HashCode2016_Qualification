@@ -31,6 +31,7 @@ public class InputReaderAndParser {
 			Warehouse warehouse = new Warehouse();
 			warehouse.row = scanner.nextInt();
 			warehouse.column = scanner.nextInt();
+			warehouse.id = i;
 
 			for (int j = 0; j < gameSettings.numberOfProductTypes; ++j) {
 				warehouse.numberOfProducts.add(j, scanner.nextInt());
@@ -46,6 +47,7 @@ public class InputReaderAndParser {
 			order.row = scanner.nextInt();
 			order.column = scanner.nextInt();
 			order.numberOfItems = scanner.nextInt();
+			order.id = i;
 
 			for (int j = 0; j < order.numberOfItems; ++j) {
 				int item = scanner.nextInt();
@@ -68,6 +70,7 @@ public class InputReaderAndParser {
 			Dron dron = new Dron();
 			dron.column = initialWarehouse.column;
 			dron.row = initialWarehouse.row;
+			dron.id = i;
 
 			gameSettings.drones.add(dron);
 		}

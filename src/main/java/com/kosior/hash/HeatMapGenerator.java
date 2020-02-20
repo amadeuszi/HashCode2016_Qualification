@@ -15,17 +15,18 @@ public class HeatMapGenerator {
 
 
         for (Order order: gameSettings.orders) {
-            data[order.column][order.row] = order.totalWeights;
+            data[order.column][order.row] = Math.round((order.totalWeights + 0.0)/gameSettings.maxDronePayload);
+            System.out.println(order.totalWeights);
         }
 
         for (Warehouse warehouse : gameSettings.warehouses) {
-            data[warehouse.column][warehouse.row] = 1000;
-            data[warehouse.column-1][warehouse.row] = 1000;
+            data[warehouse.column][warehouse.row] = 10;
+            data[warehouse.column-1][warehouse.row] = 10;
         //    data[warehouse.column+1][warehouse.row] = 1000;
         //    data[warehouse.column+1][warehouse.row+1] = 1000;
         //    data[warehouse.column+1][warehouse.row+1] = 1000;
-            data[warehouse.column-1][warehouse.row-1] = 1000;
-            data[warehouse.column][warehouse.row-1] = 1000;
+            data[warehouse.column-1][warehouse.row-1] = 10;
+            data[warehouse.column][warehouse.row-1] = 10;
         }
 
         HeatChart map = new HeatChart(data);
