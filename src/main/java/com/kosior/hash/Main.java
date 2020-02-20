@@ -16,6 +16,7 @@ public class Main {
 
     private void run() {
         data = InputReaderAndParser.readAndParseInput();
+        System.out.println("hashcode");
         // HeatMapGenerator.generateHeatMap(data);
 
 
