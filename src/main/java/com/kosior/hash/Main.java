@@ -11,8 +11,6 @@ public class Main {
     private Data data;
 
     private int currentDay = 0;
-
-
     private static List<Library> outputLibraries = new ArrayList<>();
     private static Library processLibrary = null;
 
@@ -29,10 +27,10 @@ public class Main {
                 outputLibraries.add(processLibrary);
                 processLibrary = null;
             }
-            if (finishSignUp < currentDay && !librarySortable.isEmpty()) {
+            if (finishSignUp <= currentDay && !librarySortable.isEmpty()) {
                 librarySortable.sort(Library::compareTo);
                 Library library = librarySortable.remove(0);
-                finishSignUp = currentDay + library.getSignupTime() - 1; // TODO czy na pewno - 1
+                finishSignUp = currentDay + library.getSignupTime(); // TODO czy na pewno - 1
                 processLibrary = library;
             }
             for (Library library : outputLibraries) {
@@ -45,13 +43,13 @@ public class Main {
             currentDay++;
         }
 
-
         this.printOutput();
     }
 
     private List<Book> findBooks(Library library) {
-        int size = library.getNumberOfBooks() * (this.data.getNumberOfDays() - this.currentDay);
+        int size = library.getNumberOfBooks() * (this.data.getNumberOfDays() - this.currentDay + 1);
         library.getBooks().removeIf(Book::isDone);
+        library.getBooks().sort(Book::compareTo);
         if (library.getBooks().isEmpty()) {
             return Collections.emptyList();
         }

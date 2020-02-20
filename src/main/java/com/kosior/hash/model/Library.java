@@ -2,7 +2,6 @@ package com.kosior.hash.model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.PriorityQueue;
 
 public class Library implements  Comparable<Library> {
 
@@ -70,9 +69,9 @@ public class Library implements  Comparable<Library> {
 
 	private int getScore(Library library) {
 		int res = 0;
-		res += library.getBooks().stream().filter(b -> !b.isDone()).map(b -> b.getScore()).reduce(0, Integer::sum) * 2; // TODO factor
-		res *= library.getPerformance();
-		res += (-1) * library.getSignupTime() * 1; // TODO factor
+		res += library.getBooks().stream().filter(b -> !b.isDone()).map(b -> b.getScore()).reduce(0, Integer::sum) * 0.7; // TODO factor
+//		res += library.getPerformance();
+		res += (-1) * library.getSignupTime() ; // TODO factor
 
 		return res;
 	}
