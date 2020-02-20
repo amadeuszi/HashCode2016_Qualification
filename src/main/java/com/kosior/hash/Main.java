@@ -4,10 +4,7 @@ import com.kosior.hash.model.Book;
 import com.kosior.hash.model.Data;
 import com.kosior.hash.model.Library;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.PriorityQueue;
+import java.util.*;
 
 public class Main {
 
@@ -19,21 +16,22 @@ public class Main {
     private static List<Library> outputLibraries = new ArrayList<>();
     private static Library processLibrary = null;
 
-    private PriorityQueue<Library> libraryQueue;
+    private List<Library> librarySortable;
     private int finishSignUp = -1;
 
 
     private void run() {
         data = InputReaderAndParser.readAndParseInput();
-        libraryQueue = new PriorityQueue<>(data.getLibraries());
+        librarySortable = new ArrayList<>(data.getLibraries());
 
         while (currentDay < data.getNumberOfDays()) {
             if (finishSignUp == currentDay) {
                 outputLibraries.add(processLibrary);
                 processLibrary = null;
             }
-            if (finishSignUp < currentDay && !libraryQueue.isEmpty()) {
-                Library library = libraryQueue.poll();
+            if (finishSignUp < currentDay && !librarySortable.isEmpty()) {
+                librarySortable.sort(Library::compareTo);
+                Library library = librarySortable.remove(0);
                 finishSignUp = currentDay + library.getSignupTime() - 1; // TODO czy na pewno - 1
                 processLibrary = library;
             }
@@ -52,7 +50,7 @@ public class Main {
     }
 
     private List<Book> findBooks(Library library) {
-        int size = library.getNumberOfBooks();
+        int size = library.getNumberOfBooks() * (this.data.getNumberOfDays() - this.currentDay);
         library.getBooks().removeIf(Book::isDone);
         if (library.getBooks().isEmpty()) {
             return Collections.emptyList();
@@ -70,6 +68,7 @@ public class Main {
     }
 
     private void printOutput() {
+        outputLibraries.removeIf(l -> l.getBooksToScan().isEmpty());
         System.out.println(outputLibraries.size());
         for (Library library : outputLibraries) {
             System.out.println(library.getId() + " " + library.getBooksToScan().size());

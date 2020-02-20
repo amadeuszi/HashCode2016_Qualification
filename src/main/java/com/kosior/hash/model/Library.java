@@ -63,7 +63,18 @@ public class Library implements  Comparable<Library> {
 
 	@Override
 	public int compareTo(Library library) {
-		return Integer.compare(library.getSignupTime(), this.getSignupTime());
+		int x1 = this.getScore(this);
+		int x2 = this.getScore(library);
+		return Integer.compare(x2, x1);
+	}
+
+	private int getScore(Library library) {
+		int res = 0;
+		res += library.getBooks().stream().filter(b -> !b.isDone()).map(b -> b.getScore()).reduce(0, Integer::sum) * 2; // TODO factor
+		res *= library.getPerformance();
+		res += (-1) * library.getSignupTime() * 1; // TODO factor
+
+		return res;
 	}
 
 }
